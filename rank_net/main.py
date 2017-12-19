@@ -201,11 +201,11 @@ class NN:  # Neural Network
         # Update delta_{A}
         for i in range(self.numHidden):
             self.prevDeltaHidden[i] = logFuncDerivative(self.prevHiddenActivations[i]) * self.weights_output[i] * (
-            self.prevDeltaOutput - self.deltaOutput)
+                self.prevDeltaOutput - self.deltaOutput)
         # Update delta_{B}
         for j in range(self.numHidden):
             self.deltaHidden[j] = logFuncDerivative(self.activations_hidden[j]) * self.weights_output[j] * (
-            self.prevDeltaOutput - self.deltaOutput)
+                self.prevDeltaOutput - self.deltaOutput)
 
     def updateWeights(self):
         '''
@@ -218,13 +218,14 @@ class NN:  # Neural Network
         for j in range(self.numHidden):
             for i in range(self.numInputs):
                 self.weights_input[i][j] = self.weights_input[i][j] + self.learning_rate * (
-                self.prevDeltaHidden[j] * self.prevInputActivations[i] - self.deltaHidden[j] * self.activations_input[
-                    i])
+                    self.prevDeltaHidden[j] * self.prevInputActivations[i] - self.deltaHidden[j] *
+                    self.activations_input[
+                        i])
 
         # Update weights going from the hidden layer (i) to the output layer (j)
         for i in range(self.numHidden):
             self.weights_output[i] = self.weights_output[i] + self.learning_rate * (
-            self.prevDeltaOutput * self.prevHiddenActivations[i] - self.deltaOutput * self.activations_hidden[i])
+                self.prevDeltaOutput * self.prevHiddenActivations[i] - self.deltaOutput * self.activations_hidden[i])
 
     # Removed target value(?)
     def backpropagate(self):

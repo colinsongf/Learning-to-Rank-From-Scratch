@@ -299,7 +299,7 @@ class NN:  # Neural Network
 
 if __name__ == '__main__':
     # Read training data
-    X_train, y_train, Query = readDataset('Data/train.txt')
+    X_train, y_train, Query = readDataset('../Data/train.txt')
     # Extract document pairs
     pairs = extractPairsOfRatedSites(y_train, Query)
     # Initialize Neural Network
@@ -307,7 +307,7 @@ if __name__ == '__main__':
     # Train the Neural Network
     rankNet.train(X_train, pairs, 20)
     # Read testset
-    X_train, y_train, Query = readDataset('Data/test.txt')
+    X_train, y_train, Query = readDataset('../Data/test.txt')
     # Extract document pairs
     pairs = extractPairsOfRatedSites(y_train, Query)
     print('Testset errorRate: ' + str(rankNet.countMisorderedPairs(X_train, pairs)))

@@ -10,13 +10,16 @@ from sklearn.linear_model import LogisticRegression
 
 # load or create your dataset
 print('Load data...')
-df_train = pd.read_csv('../Data/train.txt', header=None, sep=' ')
-df_test = pd.read_csv('../Data/test.txt', header=None, sep=' ')
+df_train = pd.read_csv('../Data/regression.train', header=None, sep=' ')
+df_test = pd.read_csv('../Data/regression.test', header=None, sep=' ')
 
-y_train = df_train[0]  # training label
-y_test = df_test[0]  # testing label
-X_train = df_train.drop(0, axis=1)  # training dataset drop the label column
-X_test = df_test.drop(0, axis=1)  # testing dataset
+y_train = df_train[0].values  # training label
+y_test = df_test[0].values  # testing label
+X_train = df_train.drop(0, axis=1).values  # training dataset drop the label column
+X_test = df_test.drop(0, axis=1).values  # testing dataset
+
+print(X_train, len(X_train))
+print(X_test, len(X_test))
 
 # create dataset for lightgbm
 lgb_train = lgb.Dataset(X_train, y_train)
@@ -45,7 +48,7 @@ print('Start training...')
 gbm = lgb.train(params,
                 lgb_train,
                 num_boost_round=100,
-                valid_sets=lgb_train)
+                valid_sets=lgb_eval)
 
 print('Save model...')
 # save model to file
